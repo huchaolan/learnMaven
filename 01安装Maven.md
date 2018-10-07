@@ -114,5 +114,5 @@ Project configurators for commonly used maven plugins|支持一些Maven插件和
 
 - 不用使用IDE内嵌的Maven
 
-当安装Eclipse的Maven插件后,会自带一个内嵌的Maven,即使你没有安装Maven也可以使用,但是这些通常不稳定,而且不能执行命令行,推荐要安装一个Maven并在Eclipse中将Maven插件指定到安装的版本  
+当安装Eclipse的Maven插件后,会自带一个内嵌的Maven,即使你没有安装Maven也可以使用,但是这些通常不稳定,而且不能执行命令行,推荐要安装一个Maven并在Eclipse中将Maven插件指定到安装的版本就可以了  
 >Eclipse->Preferences->Maven->Installations->点击Add指定新的Maven运行环境
