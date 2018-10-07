@@ -93,12 +93,6 @@ lib|mvn运行需要加载java类库
 模块名称|描述
 -|-
 Maven SCM handler for Subclipse|模块能够直接从Subversion服务器检出Maven项目,需要安装Subclipse
-Maven SCM Integration|Maven域SCM集成核心模块,它利用各种SCM工具实现Maven项目的签出和具体化等操作
-Maven issue tracking configurator for Mylyn3.x|使用POM中的缺陷跟踪系统信息链接Mylyn到服务器
-Maven SCM handler for Team/CVS|从CVS服务器签出Maven项目
-Maven Integration for WTP|自动读取POM信息并配置WTP项目
-M2Eclipse Extensions Development Support|支持M2eclipse扩展
-Project configurators for commonly used maven plugins|支持一些Maven插件和Eclipse集成
 
 ## Maven安装最佳实践
 
