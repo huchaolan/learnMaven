@@ -88,8 +88,7 @@ lib|mvn运行需要加载java类库
 5. nonProxyHosts表示访问该域名不用代理,多个域名使用|分隔
 
 ## 安装m2eclipse插件
-
-介绍下m2eclipse的组件  
+  
 模块名称|描述
 -|-
 Maven SCM handler for Subclipse|模块能够直接从Subversion服务器检出Maven项目,需要安装Subclipse
