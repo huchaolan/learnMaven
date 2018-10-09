@@ -98,6 +98,124 @@ public class HelloWorld {
 
 ## 编写测试代码
 
+### 使用junit来编写单元测试，需要添加junit的依赖
+
+```xml
+<dependencies>
+    <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.7</version>
+        <scope>test</scope>
+    </dependency>
+</dependencies>
+```
+
++ 这个段XML要添加`project`元素中
++ `dependencies`元素表示项目的所有依赖，子元素`dependency`表示一个依赖
++ `groupId`,`artifactId`,`version`是依赖的坐标3元素
++ `scope`是依赖的范围，test表示是测试才需要的依赖
+
+### 测试目录
+
+测试根目录:src/test/java目录
+
+```java
+public class HelloWorldTest {
+    @Test
+    public void testSayHello() {
+        HelloWorld h = new HelloWorld();
+        String result = h.sayHello();
+        assertEquals("Hello,Maven", result);
+    }
+}
+```
+
+### 运行测试代码
+
+在shell中运行`mvn clean test`,Maven就自动下载依赖，清理target目录，编译测试代码并运行单元测试。
+
+```bash
+PS C:\Users\PC\Desktop\maven文档\learnMaven\02chapter\HelloWorld> mvn clean test
+[INFO] Scanning for projects...
+[INFO]
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Maven Hello World Project 1.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO]
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ hello-world ---
+[INFO] Deleting C:\Users\PC\Desktop\maven文档\learnMaven\02chapter\HelloWorld\target
+[INFO]
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ hello-world ---
+[WARNING] Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory C:\Users\PC\Desktop\maven文档\learnMaven\02chapter\HelloWorld\src\main\resources
+[INFO]
+[INFO] --- maven-compiler-plugin:3.1:compile (default-compile) @ hello-world ---
+[INFO] Changes detected - recompiling the module!
+[WARNING] File encoding has not been set, using platform encoding GBK, i.e. build is platform dependent!
+[INFO] Compiling 1 source file to C:\Users\PC\Desktop\maven文档\learnMaven\02chapter\HelloWorld\target\classes
+[WARNING] /C:/Users/PC/Desktop/maven文档/learnMaven/02chapter/HelloWorld/src/main/java/com/juvenxu/mvnbook/helloworld/HelloWorld.java:[5,78] 编码GBK的不可映射字符
+[INFO]
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ hello-world ---
+[WARNING] Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory C:\Users\PC\Desktop\maven文档\learnMaven\02chapter\HelloWorld\src\test\resources
+[INFO]
+[INFO] --- maven-compiler-plugin:3.1:testCompile (default-testCompile) @ hello-world ---
+[INFO] Changes detected - recompiling the module!
+[WARNING] File encoding has not been set, using platform encoding GBK, i.e. build is platform dependent!
+[INFO] Compiling 1 source file to C:\Users\PC\Desktop\maven文档\learnMaven\02chapter\HelloWorld\target\test-classes
+[INFO]
+[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ hello-world ---
+[INFO] Surefire report directory: C:\Users\PC\Desktop\maven文档\learnMaven\02chapter\HelloWorld\target\surefire-reports
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running com.juvenxu.mvnbook.helloworld.HelloWorldTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.041 sec
+
+Results :
+
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 2.315 s
+[INFO] Finished at: 2018-10-09T22:16:57+08:00
+[INFO] Final Memory: 15M/210M
+[INFO] ------------------------------------------------------------------------
+```
+
+新增的Maven任务:
+
++ `compiler:testCompile`任务是编译测试代码到target目录
++ `resource:testResource`将测试资源文件复制到target目录
++ `Surefire`是负责单元测试的插件，它可以将测试结果输出到文件中`[INFO] Surefire report directory:`
+
+### 配置编译代码java版本
+
+编译器的版本要和应用的java版本一致，这要编译代码才可以运行，Maven的编译插件指定
+
+```xml
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.1</version>
+            <configuration>
+                <source>1.8</source>
+                <target>1.8</target>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+```
+
+这段XML在后面在介绍，书中例子没有version元素，在运行时会有告警。你可以通过输出的日志得到编辑插件是3.1  
+`[INFO] --- maven-compiler-plugin:3.1:testCompile (default-testCompile) @ hello-world ---`
+`source`是使用java8的语法，`target`是用java8版本编译
+
 ## 打包和运行
 
 ## 使用Archetype生成项目骨架
