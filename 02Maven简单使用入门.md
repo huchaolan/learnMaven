@@ -194,7 +194,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 
 ### 配置编译代码java版本
 
-编译器的版本要和应用的java版本一致，这要编译代码才可以运行，Maven的编译插件指定
+编译器的版本要和应用的java版本一致，这要编译代码才可以运行，Maven的编译插件可以指定java版本
 
 ```xml
 <build>
