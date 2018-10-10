@@ -218,4 +218,64 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 
 ## 打包和运行
 
+在编译测试后就是将测试完成的代码打包，如果POM中没有指定打包类型，默认是用jar.  
+运行命令`mvn clean package`，Maven自动重新编译测试打包
+
+```bash
+[INFO]
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ hello-world ---
+[INFO] Building jar: C:\Users\PC\Desktop\maven文档\learnMaven\02chapter\HelloWorld\target\hello-world-1.0-SNAPSHOT.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 2.429 s
+[INFO] Finished at: 2018-10-11T00:08:56+08:00
+[INFO] Final Memory: 16M/211M
+[INFO] ------------------------------------------------------------------------
+```
+
+`hello-world-1.0-SNAPSHOT.jar`jar包的名称是根据artifact-version.jar的规则生成的.生成号的jar包如果其他项目需要使用，可以运行`mvn clean install`将jar包复制到本地的Maven仓库，那么可以在其他POM中写入依赖。Maven自动将jar包复制到项目中
+
+```bash
+[INFO] --- maven-install-plugin:2.4:install (default-install) @ hello-world ---
+[INFO] Installing C:\Users\PC\Desktop\maven文档\learnMaven\02chapter\HelloWorld\target\hello-world-1.0-SNAPSHOT.jar to D:\javaproject\jar\maven\com\juvenxu\mvnbook\hello-world\1.0-SNAPSHOT\hello-world-1.0-SNAPSHOT.jar
+[INFO] Installing C:\Users\PC\Desktop\maven文档\learnMaven\02chapter\HelloWorld\pom.xml to D:\javaproject\jar\maven\com\juvenxu\mvnbook\hello-world\1.0-SNAPSHOT\hello-world-1.0-SNAPSHOT.pom
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 2.199 s
+[INFO] Finished at: 2018-10-11T00:15:58+08:00
+[INFO] Final Memory: 16M/211M
+[INFO] ------------------------------------------------------------------------
+```
+
+生成好的jar包还不能直接运行，注意HelloWord是由main方法，由于main方法没有添加在manifest文件中，需要借助maven-shade-plugin插件配置如下：
+
+```xml
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-shade-plugin</artifactId>
+    <version>1.2.1</version>
+    <executions>
+        <execution>
+        <phase>package</phase>
+        <goals>
+        <goal>shade</goal>
+        </goals>
+        <configuration>
+        <transformers>
+        <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+            <mainClass>com.juvenxu.mvnbook.helloworld.HelloWorld</mainClass>
+        </transformer>
+        </transformers>
+        </configuration>
+        </execution>
+    </executions>
+</plugin>
+```
+
+生成的jar包使用`java -jar .\target\hello-world-1.0-SNAPSHOT.jar`执行
+
 ## 使用Archetype生成项目骨架
+
+通过ArcheType插件可以快速Maven项目的骨架,包括src目录和pom.xml,通过执行命令`mvn archetype:generate`可以展示已经稳定的骨架项目，然后输入groupId，artifactId和version，maven可以自动目录结构和pom文件。
