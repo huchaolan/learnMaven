@@ -279,3 +279,13 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 ## 使用Archetype生成项目骨架
 
 通过ArcheType插件可以快速Maven项目的骨架,包括src目录和pom.xml,通过执行命令`mvn archetype:generate`可以展示已经稳定的骨架项目，然后输入groupId，artifactId和version，maven可以自动目录结构和pom文件。
+
+## m2eclipse简单使用
+
++ 导入maven项目
+
+>打开Eclipse->File->Import->选择Maven下的Existing Maven Projects->在Root Directory选择存在的Maven项目的根目录
+
++ 创建Maven项目
+
+>打开Eclipse->File->New->Other->选择Maven->选择MavenProject
